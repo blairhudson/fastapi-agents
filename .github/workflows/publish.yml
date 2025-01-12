@@ -100,3 +100,32 @@ jobs:
         run: echo "Skipped publish" > skip_publish.txt
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  generate_and_publish_docs:
+    needs: version_bump_and_publish
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python version from file
+        uses: actions/setup-python@v4
+        with:
+          python-version-file: .python-version
+
+      - name: Install dependencies for docs
+        run: |
+          python3 -m pip install --upgrade pip
+          python3 -m pip install mkdocs mkdocs-material
+
+      - name: Build documentation
+        run: |
+          mkdocs build
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          build_dir: site
