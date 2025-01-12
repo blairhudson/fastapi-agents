@@ -12,6 +12,12 @@
 - 🚀 **Performance Optimized**: Leverage FastAPI's high performance and scalability for AI agent interactions.
 - 📖 **Auto-Generated API Documentation**: OpenAPI integration for your registered agents, out of the box!
 
+## 💖 Sponsors
+
+You can support the ongoing development of FastAPI Agents by becoming a sponsor:
+
+[Sponsor FastAPI Agents](https://github.com/sponsors/blairhudson)
+
 ## 🚀 Installation
 
 Install `FastAPI Agents` using pip, poetry or uv:
@@ -186,6 +192,26 @@ We welcome contributions! To contribute:
 4. Submit a pull request.
 
 For any questions or feature requests including additional agent frameworks, open an issue in the repository.
+
+## 📄 Citation
+
+If you use **FastAPI Agents** in your work, please cite it using the metadata in the `CITATION.cff` file:
+
+[![CITATION.cff](https://img.shields.io/badge/CITATION-cff-blue)](https://github.com/blairhudson/fastapi-agents/blob/main/CITATION.cff)
+
+Alternatively, you can use the following BibTeX entry:
+
+```bibtex
+@software{fastapi_agents,
+  author = {Blair Hudson},
+  title = {FastAPI Agents},
+  year = {2025},
+  version = {0.1},
+  url = {https://github.com/blairhudson/fastapi-agents},
+  orcid = {https://orcid.org/0009-0007-4216-4555},
+  abstract = {FastAPI Agents is the ultimate FastAPI extension for integrating AI agents into your applications.}
+}
+```
 
 ## 📜 License
 

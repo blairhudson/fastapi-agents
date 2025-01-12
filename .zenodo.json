@@ -1,0 +1,38 @@
+{
+    "title": "FastAPI Agents",
+    "upload_type": "software",
+    "description": "FastAPI Agents is the ultimate FastAPI extension for integrating AI agents into your applications. It provides easy agent management, built-in security, and support for frameworks like PydanticAI, Llama-Index, and HuggingFace SmolAgents, enabling seamless AI-powered interactions in FastAPI apps.",
+    "creators": [
+      {
+        "name": "Hudson, Blair",
+        "affiliation": "Independent Contributor, Australia",
+        "orcid": "https://orcid.org/0009-0007-4216-4555"
+      }
+    ],
+    "version": "0.1",
+    "license": "MIT",
+    "keywords": [
+      "fastapi",
+      "ai",
+      "agents",
+      "smolagents",
+      "llama-index",
+      "pydantic-ai"
+    ],
+    "access_right": "open",
+    "repository_url": "https://github.com/blairhudson/fastapi-agents",
+    "related_identifiers": [
+      {
+        "relation": "isSupplementTo",
+        "identifier": "https://github.com/blairhudson/fastapi-agents"
+      }
+    ],
+    "funding": [
+      {
+        "funder_name": "GitHub Sponsors",
+        "funder_identifier": "https://github.com/sponsors/blairhudson",
+        "award_title": "Community Contributions"
+      }
+    ]
+  }
+  

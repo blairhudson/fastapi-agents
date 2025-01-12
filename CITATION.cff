@@ -1,0 +1,27 @@
+cff-version: 1.2.0
+title: FastAPI Agents
+message: >-
+  If you use this software, please cite it using the metadata from this file.
+type: software
+authors:
+  - given-names: Blair
+    family-names: Hudson
+    email: blairhudson@users.noreply.github.com
+    orcid: https://orcid.org/0009-0007-4216-4555
+identifiers:
+  repository-code: 'https://github.com/blairhudson/fastapi-agents'
+  url: 'https://github.com/blairhudson/fastapi-agents'
+abstract: >-
+  FastAPI Agents is the ultimate FastAPI extension for integrating AI agents into your applications.
+  It provides easy agent management, built-in security, and support for frameworks like PydanticAI,
+  Llama-Index, and HuggingFace SmolAgents, enabling seamless AI-powered interactions in FastAPI apps.
+keywords:
+  - fastapi
+  - ai
+  - agents
+  - smolagents
+  - llama-index
+  - pydantic-ai
+license: MIT
+version: 0.1
+date-released: 2025-01-12
