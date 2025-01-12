@@ -139,4 +139,4 @@ jobs:
         uses: actions/deploy-pages@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          artifact-name: site
+          artifact_name: site
