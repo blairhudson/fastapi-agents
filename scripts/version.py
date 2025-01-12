@@ -17,5 +17,8 @@ def bump_patch(file_path="pyproject.toml"):
 
     print(f"Bumped version to {new_version}")
 
-if __name__ == "__main__":
-    bump_patch()
+def get_version(file_path="pyproject.toml"):
+    with open(file_path, "r") as file:
+        data = toml.load(file)
+
+    return data.get("project", {}).get("version")

@@ -32,4 +32,5 @@ uvicorn = [ "uvicorn>=0.34.0",]
 security = [ "python-multipart>=0.0.20",]
 
 [project.scripts]
-bump = "scripts.version:bump_patch"
+bump-version = "scripts.version:bump_patch"
+get-version = "scripts.version:get_version"
