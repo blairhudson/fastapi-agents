@@ -1,6 +1,5 @@
 site_name: FastAPI Agents
-docs_dir: .
 nav:
-  - Home: README.md
+  - Home: index.md
 theme:
   name: material
