@@ -1,6 +1,6 @@
 [project]
 name = "fastapi-agents"
-version = "0.1.10"
+version = "0.1.11"
 description = "A FastAPI extension for integrating common AI agent frameworks."
 readme = "README.md"
 classifiers = [ "Development Status :: 3 - Alpha", "Framework :: FastAPI", "Programming Language :: Python", "Programming Language :: Python :: 3", "Programming Language :: Python :: 3.12", "License :: OSI Approved :: MIT License", "Operating System :: OS Independent",]
