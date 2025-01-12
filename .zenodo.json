@@ -21,6 +21,7 @@
     ],
     "access_right": "open",
     "repository_url": "https://github.com/blairhudson/fastapi-agents",
+    "doi": "10.5281/zenodo.14635504",
     "related_identifiers": [
       {
         "relation": "isSupplementTo",

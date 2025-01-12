@@ -9,6 +9,7 @@ authors:
     email: blairhudson@users.noreply.github.com
     orcid: https://orcid.org/0009-0007-4216-4555
 identifiers:
+  doi: '10.5281/zenodo.14635504'
   repository-code: 'https://github.com/blairhudson/fastapi-agents'
   url: 'https://github.com/blairhudson/fastapi-agents'
 abstract: >-

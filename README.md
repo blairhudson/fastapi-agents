@@ -195,9 +195,11 @@ For any questions or feature requests including additional agent frameworks, ope
 
 ## 📄 Citation
 
-If you use **FastAPI Agents** in your work, please cite it using the metadata in the `CITATION.cff` file:
+If you use **FastAPI Agents** in your work, please consider citing it using the metadata in the `CITATION.cff` file:
 
-[![CITATION.cff](https://img.shields.io/badge/CITATION-cff-blue)](https://github.com/blairhudson/fastapi-agents/blob/main/CITATION.cff)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.14635504.svg)](https://doi.org/10.5281/zenodo.14635504)
+
+This DOI represents all versions of the project. For version-specific DOIs, refer to the [Zenodo project page](https://doi.org/10.5281/zenodo.14635504).
 
 Alternatively, you can use the following BibTeX entry:
 
@@ -207,6 +209,7 @@ Alternatively, you can use the following BibTeX entry:
   title = {FastAPI Agents},
   year = {2025},
   version = {0.1},
+  doi = {10.5281/zenodo.14635504},
   url = {https://github.com/blairhudson/fastapi-agents},
   orcid = {https://orcid.org/0009-0007-4216-4555},
   abstract = {FastAPI Agents is the ultimate FastAPI extension for integrating AI agents into your applications.}
