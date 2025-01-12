@@ -130,5 +130,13 @@ jobs:
         run: |
           mkdocs build
 
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: site
+          path: site
+
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
