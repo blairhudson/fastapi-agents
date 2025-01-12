@@ -124,6 +124,8 @@ jobs:
 
       - name: Build documentation
         run: |
+          mkdir -p docs
+          cp README.md docs/index.md
           mkdocs build
           ls -R site
 
