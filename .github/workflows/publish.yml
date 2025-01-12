@@ -60,6 +60,7 @@ jobs:
         env:
           UV_PUBLISH_TOKEN: ${{ secrets.UV_PUBLISH_TOKEN }}
         run: |
+          uv build
           uv publish
 
       - name: Get previous version tag
