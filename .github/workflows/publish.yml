@@ -39,9 +39,7 @@ jobs:
 
       - name: Bump version
         run: |
-          sed -i -E 's/(version = "([0-9]+)\.([0-9]+)\.)([0-9]+)"/echo "\1$((\4+1))"/ge' pyproject.toml
-          sed -n 's/version = "\(.*\)"/NEW_VERSION=\1/p' pyproject.toml >> $GITHUB_ENV
-          uv lock
+          uv run bump
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add pyproject.toml uv.lock
