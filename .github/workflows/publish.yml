@@ -1,0 +1,106 @@
+name: Publish and Release
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  version_bump_and_publish:
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi # Specify the environment to restrict deployments
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Fetch all history for all tags and branches
+
+      - name: Set up Python version from file
+        uses: actions/setup-python@v4
+        with:
+          python-version-file: .python-version
+
+      - name: Install uv
+        run: |
+          python3 -m pip install --upgrade pip
+          python3 -m pip install uv
+
+      - name: Install dev dependencies
+        run: |
+          uv sync --dev
+
+      - name: Run tests with pytest
+        run: |
+          pytest --cov=. --cov-report=xml --cov-report=term --maxfail=5 --disable-warnings
+
+      - name: Bump version
+        run: |
+          uv bump patch
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add pyproject.toml
+          git commit -m "Bump version to $(uv version)"
+
+      - name: Get new version
+        id: get_new_version
+        run: echo "NEW_VERSION=$(uv version)" >> $GITHUB_ENV
+
+      - name: Create new tag
+        run: |
+          git tag v${{ env.NEW_VERSION }}
+
+      - name: Push changes and tags
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+          git push origin main --tags
+
+      - name: Build and publish
+        env:
+          UV_PUBLISH_TOKEN: ${{ secrets.UV_PUBLISH_TOKEN }}
+        run: |
+          uv publish
+
+      - name: Get previous version tag
+        id: get_previous_version_tag
+        run: |
+          PREVIOUS_TAG=$(git describe --tags $(git rev-list --tags --skip=1 --max-count=1))
+          echo "PREVIOUS_TAG=$PREVIOUS_TAG" >> $GITHUB_ENV
+
+      - name: Generate release notes
+        id: generate_release_notes
+        run: |
+          echo "Changes in this release:" > release_notes.md
+          git log $(git describe --tags --abbrev=0 $(git describe --tags --abbrev=0)^)..HEAD --pretty=format:"- %s ([%h](https://github.com/${{ github.repository }}/commit/%H))" >> release_notes.md
+          echo "" >> release_notes.md
+          echo "" >> release_notes.md
+          echo "[View details on PyPI](https://pypi.org/project/fastapi-agents/${{ env.NEW_VERSION }}/)" >> release_notes.md
+          echo "" >> release_notes.md
+          echo "To upgrade via pip:" >> release_notes.md
+          echo "\`\`\`" >> release_notes.md
+          echo "pip install --upgrade fastapi-agents" >> release_notes.md
+          echo "\`\`\`" >> release_notes.md
+          echo "" >> release_notes.md
+
+      - name: Output release notes for debugging
+        run: cat release_notes.md
+
+      - name: Create release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ env.NEW_VERSION }}
+          release_name: Release v${{ env.NEW_VERSION }}
+          body_path: release_notes.md
+
+      - name: Prevent publish trigger
+        run: echo "Skipped publish" > skip_publish.txt
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
