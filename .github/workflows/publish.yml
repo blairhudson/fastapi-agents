@@ -105,6 +105,7 @@ jobs:
     needs: version_bump_and_publish
     permissions:
       contents: write
+      pages: write
       id-token: write
     runs-on: ubuntu-latest
     steps:
@@ -121,22 +122,19 @@ jobs:
           python3 -m pip install --upgrade pip
           python3 -m pip install mkdocs mkdocs-material
 
-      - name: Mkdir for docs with README.md as index.md
-        run: |
-          mkdir -p docs
-          cp README.md docs/index.md
-
       - name: Build documentation
         run: |
           mkdocs build
+          ls -R site
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
           name: site
-          path: site
+          path: site  # Ensure this matches the output directory of `mkdocs build`
 
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          artifact-name: site
