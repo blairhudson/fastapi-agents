@@ -14,7 +14,7 @@ on:
 
 jobs:
   version_bump_and_publish:
-    if: ${{ github.event_name == 'push' && (github.event.head_commit.modified | join(' ') =~ '^(fastapi_agents/.*|pyproject.toml|uv.lock)$') }}
+    if: ${{ github.event_name == 'push' && (github.event.head_commit.modified.*[0] == 'fastapi_agents/' || github.event.head_commit.modified.*[0] == 'pyproject.toml' ) }}
     permissions:
       contents: write
     runs-on: ubuntu-latest
@@ -114,7 +114,7 @@ jobs:
       pages: write
       id-token: write
     runs-on: ubuntu-latest
-    if: ${{ github.event.head_commit.modified | join(' ') =~ '^(README.md|docs/.*)$' || github.job == 'version_bump_and_publish' }}
+    if: ${{ contains(github.event.head_commit.message, 'README.md') || contains(github.event.head_commit.message, 'docs/') || github.job == 'version_bump_and_publish' }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
