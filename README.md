@@ -18,6 +18,10 @@ You can support the ongoing development of FastAPI Agents by becoming a sponsor:
 
 [Sponsor FastAPI Agents](https://github.com/sponsors/blairhudson)
 
+## 📚 Documentation
+
+For further documentation, including detailed API documentation for the available agent frameworks, visit the [FastAPI Agents Documentation](https://fastapi-agents.blairhudson.com/).
+
 ## 🚀 Installation
 
 Install `FastAPI Agents` using pip, poetry or uv:
@@ -62,8 +66,6 @@ agents.register("pydanticai", PydanticAIAgent(agent))
 # Include the router
 app.include_router(agents)
 ```
-
-👉 **Want more details?** Check out the [examples/pydantic_ai.py](examples/pydantic_ai.py) file for the full implementation.
 
 ### Adding Security
 
