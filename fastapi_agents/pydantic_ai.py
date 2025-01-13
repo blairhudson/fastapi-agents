@@ -73,16 +73,33 @@ def convert_messages_to_pydanticai(data: dict):
 
 
 class PydanticAIAgent(BaseAgent):
+    """
+    Adapter class to wrap a Pydantic AI Agent for use with FastAPIAgents and resolve runtime dependencies.
+    
+    Parameters:
+        agent (Agent): The Pydantic AI Agent with `deps_type` specified.
+        deps (Optional[Callable[[], Any]]): Optional function to resolve runtime dependencies.
+    
+    Example:
+
+        from fastapi_agents.pydantic_ai import PydanticAIAgent
+        from pydantic_ai import Agent
+
+        agent = Agent("openai:gpt-4o-mini")
+        pydantic_ai_agent = PydanticAIAgent(agent)
+
+    Raises:
+        ValueError: If the agent has `deps_type` specified, but `deps` resolver is not provided.
+        ValueError: If the agent does not have `deps_type` specified, but `deps` resolver is provided.
+        
+    Returns:
+        PydanticAIAgent: A Pydantic AI Agent with runtime dependency resolution.
+    """
     def __init__(
         self,
         agent: Agent,  # The Pydantic AI Agent with deps_type
         deps: Optional[Callable[[], Any]] = None,  # Optional function to resolve runtime dependencies
     ):
-        """
-        Initialize the PydanticAIAgent.
-
-        If the wrapped Agent specifies a deps_type, `deps` must be provided.
-        """
         self.agent = agent
         
         if self.agent._deps_type is not NoneType and not deps:
@@ -96,11 +113,6 @@ class PydanticAIAgent(BaseAgent):
         self.deps = deps
 
     async def run(self, payload: RequestPayload) -> dict:
-        """
-        Executes the agent logic with runtime dependencies.
-
-        If `deps` is not provided and the agent has no `deps_type`, the method proceeds without dependencies.
-        """
         try:
             # Validate and parse the payload
             logger.info(f"Payload received: {payload}")

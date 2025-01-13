@@ -4,6 +4,28 @@ from fastapi_agents import logger
 import json
 
 class SmolagentsAgent(MultiStepAgent):
+    """
+    Adapter class for the Smolagents library for use with FastAPIAgents.
+    
+    Parameters:
+        agent (MultiStepAgent): The Smolagents agent.
+        
+    Example:
+    
+        from fastapi_agents.smolagents import SmolagentsAgent
+        from smolagents import LiteLLMModel
+        from smolagents import ToolCallingAgent
+        
+        model = LiteLLMModel("gpt-4o-mini")
+        agent = ToolCallingAgent(tools=[], model=model)
+        agents.register("smolagents", SmolagentsAgent(agent))
+
+    Raises:
+        ValueError: If the role is not "user" and there are more than one messages. 
+
+    Returns:
+        SmolagentsAgent: A Smolagents agent.
+    """
     def __init__(self, agent: MultiStepAgent):
         self.agent = agent
 

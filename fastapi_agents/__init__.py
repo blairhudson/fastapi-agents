@@ -13,6 +13,44 @@ logging.basicConfig(level=logging.INFO)
 
 
 class FastAPIAgents(APIRouter):
+    """
+    FastAPI router for managing multiple agents.
+
+    This router is designed to be used with FastAPI to manage multiple agents, each with its own endpoint.
+
+    Args:
+        path_prefix (str, optional): The path prefix for the agents' endpoints. Defaults to "/agents".
+        security_dependency (Callable, optional): A global security dependency for all agents. Defaults to None.
+        *args: Additional arguments to pass to the APIRouter parent class.
+        **kwargs: Additional keyword arguments to pass to the APIRouter parent class.
+    
+    Raises:
+        ValueError: If a per-agent security dependency is defined when a global security dependency is already set.
+    
+    Example:
+        
+        from fastapi import FastAPI, Depends, HTTPException
+        from fastapi_agents import FastAPIAgents
+        from fastapi_agents.pydantic_ai import PydanticAIAgent
+        from pydantic_ai import Agent
+
+        # Initialize FastAPI app
+        app = FastAPI()
+
+        # Initialize FastAPIAgents
+        agents = FastAPIAgents(path_prefix="/agents")
+
+        # Register PydanticAI agent
+        agent = Agent("openai:gpt-4o-mini")
+        agents.register("pydanticai", PydanticAIAgent(agent), tags=["AI Agents"], description="Pydantic AI Agent")
+
+        # Include the router
+        app.include_router(agents)
+        
+    Returns:
+        FastAPIAgents: A FastAPI router for managing multiple agents.
+        
+    """
     def __init__(
         self,
         path_prefix: Optional[str] = "/agents",
@@ -34,6 +72,21 @@ class FastAPIAgents(APIRouter):
         description: Optional[str] = None,
         security_dependency: Optional[Callable] = None,  # Optional per-agent security
     ):
+        """
+        Register an agent with the FastAPI router.
+
+        Args:
+            name (str): The name of the agent.
+            agent (BaseAgent): The agent instance to register.
+            router (APIRouter, optional): The router to use for the agent endpoint. Defaults to None.
+            tags (List[str], optional): The tags to assign to the agent endpoint. Defaults to None.
+            description (str, optional): The description of the agent endpoint. Defaults to None.
+            security_dependency (Callable, optional): A per-agent security dependency. Defaults to None.
+
+        Raises:
+            ValueError: If a per-agent security dependency is defined when a global security dependency is already set.
+            AgentNotFoundError: If the agent is not found in the registry.
+        """
         # Error if attempting to override global security
         if self.global_security_dependency and security_dependency:
             raise ValueError(

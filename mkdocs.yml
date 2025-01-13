@@ -1,5 +1,29 @@
 site_name: FastAPI Agents
 nav:
   - Home: index.md
+  - API Reference:
+    - fastapi_agents: api/index.md
+    - fastapi_agents.pydantic_ai: api/pydantic_ai.md
+    - fastapi_agents.llama_index: api/llama_index.md
+    - fastapi_agents.smolagents: api/smolagents.md
+    - fastapi_agents.models: api/models.md
+    - fastapi_agents.errors: api/errors.md
 theme:
   name: material
+
+plugins:
+  - include-markdown
+  - mkdocstrings:  # For auto-generating API documentation from your Python package
+      handlers:
+        python:
+          paths: ["../fastapi_agents"]  # Adjust path to point to the package
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: 'https://github.com/blairhudson/fastapi-agents'
+markdown_extensions: 
+  - pymdownx.highlight:
+      use_pygments: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences

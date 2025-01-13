@@ -7,8 +7,33 @@ from fastapi_agents.models import RequestPayload
 from fastapi_agents import logger
 
 class LlamaIndexAgent(AgentRunner):
+    """
+    Adapter class to wrap a LlamaIndex agent for use with FastAPIAgents.
+
+    Parameters:
+        agent (Callable[[AgentRunner], Any]): The LlamaIndex agent.
+
+    Example:
+    
+        from fastapi_agents.llama_index import LlamaIndexAgent
+        from llama_index.agent.openai import OpenAIAgent
+        from llama_index.llms.openai import OpenAI
+
+        agent = OpenAIAgent.from_llm(tools=None, llm=OpenAI("gpt-4o-mini"))
+        agents.register("llamaindex", LlamaIndexAgent(agent))
+
+    Raises:
+        ValueError: If the agent is not a LlamaIndex agent.
+        
+    Returns:
+        LlamaIndexAgent: A LlamaIndex agent.
+
+    """
     def __init__(self, agent: Callable[[AgentRunner], Any]):
         self.agent = agent
+
+        if not isinstance(agent, AgentRunner):
+            raise ValueError("Agent is not a LlamaIndex agent.")
 
     async def run(self, payload: RequestPayload) -> dict:
         validated_payload = RequestPayload(**payload.dict())

@@ -14,3 +14,6 @@ wheels/
 
 # Environment variables
 .env
+
+# mkdocs
+site/
