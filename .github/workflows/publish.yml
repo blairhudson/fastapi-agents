@@ -4,20 +4,27 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'fastapi_agents/**'
+      - 'pyproject.toml'
+      - 'uv.lock'
+      - 'docs/**'
+      - 'README.md'
   workflow_dispatch:
 
 jobs:
   version_bump_and_publish:
+    if: ${{ github.event_name == 'push' && (github.event.head_commit.modified | join(' ') =~ '^(fastapi_agents/.*|pyproject.toml|uv.lock)$') }}
     permissions:
       contents: write
     runs-on: ubuntu-latest
     environment:
-      name: pypi # Specify the environment to restrict deployments
+      name: pypi
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0  # Fetch all history for all tags and branches
+          fetch-depth: 1
 
       - name: Set up Python version from file
         uses: actions/setup-python@v4
@@ -102,15 +109,17 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   generate_and_publish_docs:
-    needs: version_bump_and_publish
     permissions:
       contents: write
       pages: write
       id-token: write
     runs-on: ubuntu-latest
+    if: ${{ github.event.head_commit.modified | join(' ') =~ '^(README.md|docs/.*)$' || github.job == 'version_bump_and_publish' }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
 
       - name: Set up Python version from file
         uses: actions/setup-python@v4
