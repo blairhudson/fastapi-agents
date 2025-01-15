@@ -7,6 +7,7 @@
 - 🤖 **Easy Agent Management**: Register, organize, and interact with multiple AI agents seamlessly.
 - 🔐 **Built-In Security**: Easily add API key, OAuth2, cookie, or OpenID authentication to your endpoints.
 - 📚 **Agent Framework Support**: Compatible with agent frameworks like PydanticAI, Llama-Index, and HuggingFace Smolagents.
+- 🐳 **Pre-Built Containers**: Easily deploy agents in your favourite framework with ready made containers.
 - 🛠️ **Extensibility**: Support additional agent frameworks by extending the `BaseAgent` class.
 - 🧩 **Dynamic Dependencies**: Inject and resolve request-specific configurations effortlessly.
 - 🚀 **Performance Optimized**: Leverage FastAPI's high performance and scalability for AI agent interactions.
@@ -166,6 +167,75 @@ agents.register(
 - **Endpoint URLs**:
     - The endpoint for an agent is constructed as `{path_prefix}/{name}`. 
     - If `path_prefix` is `None`, the URL becomes `/{name}`.
+
+## 🐳 Using Docker
+
+### Pre-Built Images
+
+Pre-built Docker images for `FastAPI Agents` are available on GitHub Container Registry (GHCR):
+
+- **Repository**: `ghcr.io/blairhudson/fastapi-agents`
+- Tags:
+  - Framework-specific: `pydantic-ai`, `smolagents`, `llama-index`
+  - Version-specific: `<framework>-<version>`
+
+To pull a specific image:
+
+```bash
+docker pull ghcr.io/blairhudson/fastapi-agents:pydantic-ai
+```
+
+### Environment Variables
+
+The pre-built images support the following environment variables for customisation:
+
+| Variable           | Example Value      | Description                                                |
+|--------------------|--------------------|------------------------------------------------------------|
+| `AGENT_FRAMEWORK`  | `pydantic-ai`     | Specifies the agent framework to use.                      |
+| `AGENT_MODULE`     | `agent.pydantic_ai` | Path to the agent module.                                  |
+| `AGENT_CLASS`      | `agent`           | Class name for the agent.                                  |
+| `SECURITY_MODULE`  | `agent.pydantic_ai` | Specifies the security module for the agent. |
+| `SECURITY_CLASS` | `validate_token` | Class name for the security depdency. |
+| `API_ENDPOINT`     | `pydantic-ai`      | API endpoint path for the agent.                           |
+| `API_PREFIX`       | `/agents`         | Prefix for all agent-related API endpoints.                |
+| `PORT`             | `8080`            | Port the application runs on within the container.         |
+
+To customize these values, pass them as `-e` arguments to `docker run` or define them in an `.env` file.
+
+### Volume Mounting
+
+Agents are expected to be volume-mounted at `/app/agent`. You can mount your agent directory as follows:
+
+```bash
+docker run -p 8000:8080 \
+  -v $(pwd)/agent:/app/agent \
+  ghcr.io/blairhudson/fastapi-agents:pydantic-ai
+```
+
+If a `requirements.txt` file is present in the mounted directory, it will be automatically installed at container startup.
+
+### Building Custom Containers
+
+For production deployments, it is recommended to build your container with dependencies included. Here’s an example `Dockerfile` starting from one of the pre-built base images:
+
+```dockerfile
+FROM ghcr.io/blairhudson/fastapi-agents:pydantic-ai
+
+# Copy your agent source code
+COPY ./agent /app/agent
+
+# Install dependencies
+RUN pip install --no-cache-dir -r /app/agent/requirements.txt
+```
+
+Build and run the custom image:
+
+```bash
+docker build -t my-custom-agent .
+docker run -p 8000:8080 my-custom-agent
+```
+
+This approach ensures all dependencies are baked into the image, improving startup performance and reliability.
 
 ## 💡 Examples
 
