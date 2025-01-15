@@ -1,0 +1,54 @@
+services:
+  pydantic-ai:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - AGENT_FRAMEWORK=pydantic-ai
+    ports:
+      - "8080:8080"
+    env_file:
+      - ../.env
+    environment:
+      - AGENT_MODULE=agent.pydantic_ai
+      - AGENT_CLASS=agent
+      - API_ENDPOINT=pydantic-ai
+      - API_PREFIX=/agents
+      #- SECURITY_MODULE=agent.pydantic_ai
+      #- SECURITY_CLASS=validate_token
+    volumes:
+      - ./agent:/app/agent
+  # smolagents:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #     args:
+  #       - AGENT_FRAMEWORK=smolagents
+  #   ports:
+  #     - "8081:8080"
+  #   env_file:
+  #     - ../.env
+  #   environment:
+  #     - AGENT_MODULE=agent.smolagents
+  #     - AGENT_CLASS=agent
+  #     - API_ENDPOINT=smolagents
+  #     - API_PREFIX=/agents
+  #   volumes:
+  #     - ./agent:/app/agent
+  # llama-index:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #     args:
+  #       - AGENT_FRAMEWORK=llama-index
+  #   ports:
+  #     - "8082:8080"
+  #   env_file:
+  #     - ../.env
+  #   environment:
+  #     - AGENT_MODULE=agent.llama_index
+  #     - AGENT_CLASS=agent
+  #     - API_ENDPOINT=llama-index
+  #     - API_PREFIX=/agents
+  #   volumes:
+  #     - ./agent:/app/agent

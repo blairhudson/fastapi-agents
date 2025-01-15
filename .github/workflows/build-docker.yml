@@ -1,0 +1,48 @@
+name: Build and Publish Docker Images
+
+on:
+  push:
+    paths:
+      - 'docker/**'
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.GITHUB_ACTOR }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and Tag Images
+        run: |
+          DOCKERFILE_PATH=docker/Dockerfile
+          PACKAGE_VERSION=0.1
+
+          for FRAMEWORK in pydantic-ai smolagents llama-index; do
+            IMAGE_NAME=ghcr.io/blairhudson/fastapi-agents:$FRAMEWORK
+            VERSIONED_IMAGE_NAME=ghcr.io/blairhudson/fastapi-agents:$FRAMEWORK-$PACKAGE_VERSION
+
+            echo "Building image for $FRAMEWORK..."
+            docker build \
+              --build-arg AGENT_FRAMEWORK=$FRAMEWORK \
+              --build-arg PACKAGE_VERSION=$PACKAGE_VERSION \
+              -t $IMAGE_NAME \
+              -t $VERSIONED_IMAGE_NAME \
+              -f $DOCKERFILE_PATH .
+
+            echo "Pushing images for $FRAMEWORK..."
+            docker push $IMAGE_NAME
+            docker push $VERSIONED_IMAGE_NAME
+          done

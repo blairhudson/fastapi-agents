@@ -1,0 +1,9 @@
+# Add your custom packages to install them at runtime if you
+# volume mount requirements.txt at /app/agent/requirements.txt
+
+# For production it is recommended to build them into the
+# container itself, e.g.:
+
+# FROM blairhudson/fastapi-agents:pydantic-ai
+# COPY requirements.txt .
+# RUN pip install --user --no-cache-dir -r requirements.txt

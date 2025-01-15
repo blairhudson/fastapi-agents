@@ -1,0 +1,46 @@
+name: Build and Publish Docs
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'docs/**'
+      - 'README.md'
+      - 'mkdocs.yml'
+  workflow_dispatch:
+
+jobs:
+  generate_and_publish_docs:
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+
+      - name: Set up Python version from file
+        uses: actions/setup-python@v4
+        with:
+          python-version-file: .python-version
+
+      - name: Install uv
+        run: |
+          python3 -m pip install --upgrade pip
+          python3 -m pip install uv
+
+      - name: Install dev dependencies
+        run: |
+          uv sync --dev
+
+      - name: Build docs
+        run: |
+          uv run mkdocs build
+
+      - name: Deploy to GitHub Pages
+        run: |
+          uv run mkdocs gh-deploy --force
