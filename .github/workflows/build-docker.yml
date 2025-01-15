@@ -42,7 +42,8 @@ jobs:
               --build-arg PACKAGE_VERSION=$PACKAGE_VERSION \
               -t $IMAGE_NAME \
               -t $VERSIONED_IMAGE_NAME \
-              -f $DOCKERFILE_PATH .
+              -f $DOCKERFILE_PATH . \
+              docker/
 
             echo "Pushing images for $FRAMEWORK..."
             docker push $IMAGE_NAME
