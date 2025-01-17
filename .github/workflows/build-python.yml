@@ -89,4 +89,43 @@ jobs:
               workflow_id: 'build-docker.yml',
               ref: context.ref
             })
+      
+      - name: Get previous version tag
+        id: get_previous_version_tag
+        run: |
+          PREVIOUS_TAG=$(git describe --tags $(git rev-list --tags --skip=1 --max-count=1))
+          echo "PREVIOUS_TAG=$PREVIOUS_TAG" >> $GITHUB_ENV
+
+      - name: Generate release notes
+        id: generate_release_notes
+        run: |
+          echo "Changes in this release:" > release_notes.md
+          git log $(git describe --tags --abbrev=0 $(git describe --tags --abbrev=0)^)..HEAD --pretty=format:"- %s ([%h](https://github.com/${{ github.repository }}/commit/%H))" >> release_notes.md
+          echo "" >> release_notes.md
+          echo "" >> release_notes.md
+          echo "[View details on PyPI](https://pypi.org/project/fastapi-agents/${{ env.NEW_VERSION }}/)" >> release_notes.md
+          echo "" >> release_notes.md
+          echo "To upgrade via pip:" >> release_notes.md
+          echo "\`\`\`" >> release_notes.md
+          echo "pip install --upgrade fastapi-agents" >> release_notes.md
+          echo "\`\`\`" >> release_notes.md
+          echo "" >> release_notes.md
+
+      - name: Output release notes for debugging
+        run: cat release_notes.md
+
+      - name: Create release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ env.NEW_VERSION }}
+          release_name: Release v${{ env.NEW_VERSION }}
+          body_path: release_notes.md
+
+      - name: Prevent publish trigger
+        run: echo "Skipped publish" > skip_publish.txt
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
