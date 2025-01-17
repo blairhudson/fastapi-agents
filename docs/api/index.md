@@ -1,3 +1,3 @@
 # API Reference
 
-::: fastapi_agents.FastAPIAgents
+::: fastapi_agents
