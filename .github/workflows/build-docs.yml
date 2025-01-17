@@ -8,6 +8,7 @@ on:
       - 'docs/**'
       - 'README.md'
       - 'mkdocs.yml'
+      - '.github/workflows/build-docs.yml'
   workflow_dispatch:
 
 jobs:

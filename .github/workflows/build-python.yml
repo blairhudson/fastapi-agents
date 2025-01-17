@@ -8,6 +8,7 @@ on:
       - 'fastapi_agents/**'
       - 'pyproject.toml'
       - 'uv.lock'
+      - '.github/workflows/build-python.yml'
   workflow_dispatch:
 
 jobs:
