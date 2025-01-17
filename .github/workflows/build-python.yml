@@ -15,6 +15,7 @@ jobs:
   version_bump_and_publish:
     permissions:
       contents: write
+      actions: write
     runs-on: ubuntu-latest
     environment:
       name: pypi
