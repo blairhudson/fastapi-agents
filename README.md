@@ -103,9 +103,9 @@ That's it! You're all set to start building smarter, more secure FastAPI applica
 
 `FastAPI Agents` supports a variety of agent frameworks, including:
 
-1. **PydanticAI**: AI agents powered by Pydantic AI. [Example](examples/pydantic_ai.py)
-2. **Llama Index**: OpenAI agents with Llama Index integration. [Example](examples/llama_index.py)
-3. **HuggingFace SmolAgents**: Lightweight and efficient AI agents. [Example](examples/smolagents.py)
+1. **PydanticAI**: AI agents powered by Pydantic AI. [Examples](https://github.com/blairhudson/fastapi-agents/tree/main/examples/pydantic-ai)
+2. **Llama Index**: OpenAI agents with Llama Index integration. [Examples](https://github.com/blairhudson/fastapi-agents/tree/main/examples/llama-index)
+3. **HuggingFace Smolagents**: Lightweight and efficient AI agents. [Examples](https://github.com/blairhudson/fastapi-agents/tree/main/examples/smolagents)
 
 ## ⚙️ Configuration Options
 
@@ -242,17 +242,19 @@ This approach ensures all dependencies are baked into the image, improving start
 Explore real-world examples for implementing `FastAPI Agents` in different scenarios:
 
 - **Agent Frameworks**:
-    - [PydanticAI](examples/pydantic_ai.py)
-    - [Llama-Index](examples/llama_index.py)
-    - [Huggingface SmolAgents](examples/smolagents.py)
+    - [PydanticAI](https://github.com/blairhudson/fastapi-agents/tree/main/examples/pydantic-ai/pydantic_ai.py)
+    - [Llama-Index](https://github.com/blairhudson/fastapi-agents/tree/main/examples/llama-index/llama_index.py)
+    - [Huggingface SmolAgents](https://github.com/blairhudson/fastapi-agents/tree/main/examples/smolagents/smolagents.py)
 - **Advanced Agent Frameworks**:
-    - [PydanticAI with Dependencies](examples/pydantic_ai_deps.py)
+    - [PydanticAI with Dependencies](https://github.com/blairhudson/fastapi-agents/tree/main/examples/pydantic-ai/pydantic_ai_deps.py)
+- **Docker*:
+    - [PydanticAI in Docker](https://github.com/blairhudson/fastapi-agents/tree/main/examples/docker)
 - **Security Integrations**:
-    - [API Key Authentication](examples/security_apikey.py)
-    - [Cookie Authentication](examples/security_cookie.py)
-    - [OAuth2 Authentication](examples/security_oauth2.py)
-    - [OpenID Connect (OIDC)](examples/security_oidc.py)
-    - [HTTP Basic Auth](examples/security_httpbasic.py)
+    - [API Key Authentication](https://github.com/blairhudson/fastapi-agents/tree/main/examples/security/security_apikey.py)
+    - [Cookie Authentication](https://github.com/blairhudson/fastapi-agents/tree/main/examples/security/security_cookie.py)
+    - [OAuth2 Authentication](https://github.com/blairhudson/fastapi-agents/tree/main/examples/security/security_oauth2.py)
+    - [OpenID Connect (OIDC)](https://github.com/blairhudson/fastapi-agents/tree/main/examples/security/security_oidc.py)
+    - [HTTP Basic Auth](https://github.com/blairhudson/fastapi-agents/tree/main/examples/security/security_httpbasic.py)
 
 ## 🤝 Contributing
 
