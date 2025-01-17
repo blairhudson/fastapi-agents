@@ -43,7 +43,7 @@ poetry add fastapi-agents -E pydantic-ai
 uv add fastapi-agents --extra pydantic-ai
 ```
 
-For available extras, replace `pydantic_ai` with the desired agent framework. See [pyproject.toml](https://github.com/blairhudson/fastapi-agents/blob/main/pyproject.toml) for the full list of extras.
+For available extras, replace `pydantic-ai` with the desired agent framework (e.g. `smolagents` or `llama-index`). See [pyproject.toml](https://github.com/blairhudson/fastapi-agents/blob/main/pyproject.toml) for the full list of extras.
 
 That's it! You're all set to start integrating AI agents into your FastAPI applications. 🎉
 
