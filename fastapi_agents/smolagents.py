@@ -1,6 +1,6 @@
 from smolagents.agents import MultiStepAgent, ToolCallingAgent, CodeAgent
 from fastapi_agents.models import RequestPayload
-from fastapi_agents import logger
+from fastapi_agents.logs import logger
 import json
 
 class SmolagentsAgent(MultiStepAgent):
@@ -45,4 +45,5 @@ class SmolagentsAgent(MultiStepAgent):
             return str(result)
         else:
             return str(result)
-    
+
+__all__ = ["SmolagentsAgent"]

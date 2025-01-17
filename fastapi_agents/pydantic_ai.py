@@ -1,7 +1,8 @@
 from datetime import datetime
 from types import NoneType
 from typing import Any, Callable, Optional
-from fastapi_agents import RequestPayload, BaseAgent, logger
+from fastapi_agents.models import RequestPayload, BaseAgent
+from fastapi_agents.logs import logger
 from pydantic_ai import Agent
 from pydantic_ai.messages import ModelRequest, UserPromptPart
 from fastapi_agents.errors import InvalidPayloadError
@@ -155,3 +156,5 @@ class PydanticAIAgent(BaseAgent):
         except Exception as e:
             logger.error(f"Error in PydanticAIAgent: {e}")
             raise
+
+__all__ = ["PydanticAIAgent"]

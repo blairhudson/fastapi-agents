@@ -3,8 +3,7 @@ from llama_index.core.agent.runner.base import AgentRunner
 from llama_index.core.base.llms.types import ChatMessage
 
 from fastapi_agents.models import RequestPayload
-
-from fastapi_agents import logger
+from fastapi_agents.logs import logger
 
 class LlamaIndexAgent(AgentRunner):
     """
@@ -50,3 +49,5 @@ class LlamaIndexAgent(AgentRunner):
 def convert_messages_to_llamaindex(messages: dict) -> List[ChatMessage]:
     """Converts messages e.g. {"messages": [{"role":"role","content":"content"}]} to LlamaIndex ChatMessage objects."""
     return [ChatMessage(content=message.content, role=message.role) for message in messages["messages"]]
+
+__all__ = ["LlamaIndexAgent"]
