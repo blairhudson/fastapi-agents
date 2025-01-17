@@ -38,9 +38,9 @@ uv add fastapi-agents
 Install optional extras for your chosen agent frameworks:
 
 ```bash
-pip install fastapi-agents[pydantic_ai]
-poetry add fastapi-agents -E pydantic_ai
-uv add fastapi-agents --extra pydantic_ai
+pip install 'fastapi-agents[pydantic-ai]'
+poetry add fastapi-agents -E pydantic-ai
+uv add fastapi-agents --extra pydantic-ai
 ```
 
 For available extras, replace `pydantic_ai` with the desired agent framework. See [pyproject.toml](https://github.com/blairhudson/fastapi-agents/blob/main/pyproject.toml) for the full list of extras.
