@@ -13,6 +13,8 @@
 - 🚀 **Performance Optimized**: Leverage FastAPI's high performance and scalability for AI agent interactions.
 - 📖 **Auto-Generated API Documentation**: OpenAPI integration for your registered agents, out of the box!
 
+See the latest updates and notes at [Releases](https://github.com/blairhudson/fastapi-agents/releases).
+
 ## 💖 Sponsors
 
 You can support the ongoing development of FastAPI Agents by becoming a sponsor:
@@ -41,7 +43,7 @@ poetry add fastapi-agents -E pydantic_ai
 uv add fastapi-agents --extra pydantic_ai
 ```
 
-For available extras, replace `pydantic_ai` with the desired agent framework. See [pyproject.toml](pyproject.toml) for the full list of extras.
+For available extras, replace `pydantic_ai` with the desired agent framework. See [pyproject.toml](https://github.com/blairhudson/fastapi-agents/blob/main/pyproject.toml) for the full list of extras.
 
 That's it! You're all set to start integrating AI agents into your FastAPI applications. 🎉
 
@@ -85,7 +87,7 @@ def validate_api_key(api_key: str = Depends(APIKeyHeader(name="X-API-Key"))):
 agents = FastAPIAgents(path_prefix="/agents", security_dependency=validate_api_key)
 ```
 
-👉 See [examples/security_apikey.py](examples/security_apikey.py) for more details.
+👉 See [Security Examples](https://github.com/blairhudson/fastapi-agents/tree/main/examples/security) for more details.
 
 ### Running the Application
 
@@ -174,8 +176,9 @@ agents.register(
 
 Pre-built Docker images for `FastAPI Agents` are available on GitHub Container Registry (GHCR):
 
-- **Repository**: `ghcr.io/blairhudson/fastapi-agents`
-- Tags:
+**Repository**: `ghcr.io/blairhudson/fastapi-agents`
+
+**Tags**:
   - Framework-specific: `pydantic-ai`, `smolagents`, `llama-index`
   - Version-specific: `<framework>-<version>`
 
@@ -184,6 +187,8 @@ To pull a specific image:
 ```bash
 docker pull ghcr.io/blairhudson/fastapi-agents:pydantic-ai
 ```
+
+See all available images and tags in [Versions](https://github.com/blairhudson/fastapi-agents/pkgs/container/fastapi-agents/versions).
 
 ### Environment Variables
 
@@ -247,7 +252,7 @@ Explore real-world examples for implementing `FastAPI Agents` in different scena
     - [Huggingface SmolAgents](https://github.com/blairhudson/fastapi-agents/tree/main/examples/smolagents/smolagents.py)
 - **Advanced Agent Frameworks**:
     - [PydanticAI with Dependencies](https://github.com/blairhudson/fastapi-agents/tree/main/examples/pydantic-ai/pydantic_ai_deps.py)
-- **Docker*:
+- **Docker**:
     - [PydanticAI in Docker](https://github.com/blairhudson/fastapi-agents/tree/main/examples/docker)
 - **Security Integrations**:
     - [API Key Authentication](https://github.com/blairhudson/fastapi-agents/tree/main/examples/security/security_apikey.py)
