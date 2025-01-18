@@ -14,7 +14,7 @@
 - 🚀 **Performance Optimized**: Leverage FastAPI's high performance and scalability for AI agent interactions.
 - 📖 **Auto-Generated API Documentation**: OpenAPI integration for your registered agents, out of the box!
 
-See the latest updates and notes at [Releases](https://github.com/blairhudson/fastapi-agents/releases).
+See [Releases](https://github.com/blairhudson/fastapi-agents/releases) for the latest updates at and [Roadmap](https://fastapi-agents.blairhudson.com/roadmap/) for what's coming.
 
 ## 💖 Sponsors
 
