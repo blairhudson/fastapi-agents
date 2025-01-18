@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+         <loc>https://fastapi-agents.blairhudson.com/</loc>
+         <lastmod>2025-01-18</lastmod>
+    </url>
+    <url>
+         <loc>https://fastapi-agents.blairhudson.com/roadmap/</loc>
+         <lastmod>2025-01-18</lastmod>
+    </url>
+    <url>
+         <loc>https://fastapi-agents.blairhudson.com/api/</loc>
+         <lastmod>2025-01-18</lastmod>
+    </url>
+    <url>
+         <loc>https://fastapi-agents.blairhudson.com/api/errors/</loc>
+         <lastmod>2025-01-18</lastmod>
+    </url>
+    <url>
+         <loc>https://fastapi-agents.blairhudson.com/api/llama_index/</loc>
+         <lastmod>2025-01-18</lastmod>
+    </url>
+    <url>
+         <loc>https://fastapi-agents.blairhudson.com/api/models/</loc>
+         <lastmod>2025-01-18</lastmod>
+    </url>
+    <url>
+         <loc>https://fastapi-agents.blairhudson.com/api/pydantic_ai/</loc>
+         <lastmod>2025-01-18</lastmod>
+    </url>
+    <url>
+         <loc>https://fastapi-agents.blairhudson.com/api/smolagents/</loc>
+         <lastmod>2025-01-18</lastmod>
+    </url>
+</urlset>
