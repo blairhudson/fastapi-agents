@@ -17,3 +17,6 @@ wheels/
 
 # mkdocs
 site/
+
+# pytest
+.coverage
