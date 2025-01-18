@@ -14,6 +14,7 @@ services:
       - AGENT_CLASS=agent
       - API_ENDPOINT=pydantic-ai
       - API_PREFIX=/agents
+      - API_MODE=simple
       #- SECURITY_MODULE=agent.pydantic_ai
       #- SECURITY_CLASS=validate_token
     volumes:

@@ -11,6 +11,7 @@ security_module = os.getenv("SECURITY_MODULE", None)
 security_class = os.getenv("SECURITY_CLASS", None)
 api_endpoint = os.getenv("API_ENDPOINT", "pydanticai")
 api_prefix = os.getenv("API_PREFIX", "/agents")
+api_mode = os.getenv("API_MODE", "simple")
 
 if security_module == '':
     security_module = None
@@ -33,7 +34,7 @@ else:
 
 # create FastAPI app and FastAPIAgents instance
 app = FastAPI()
-agents = FastAPIAgents(path_prefix=api_prefix)
+agents = FastAPIAgents(path_prefix=api_prefix, mode=api_mode)
 
 # dynamically import agent module
 import_agent_module = importlib.import_module(agent_module)

@@ -1,0 +1,18 @@
+services:
+  pydantic-ai:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    env_file:
+      - ../../.env
+    environment:
+      - AGENT_MODULE=agent.pydantic_ai_oauth2
+      - AGENT_CLASS=agent
+      - API_ENDPOINT=pydantic-ai
+      - API_PREFIX=/
+      - API_MODE=openai
+      - SECURITY_MODULE=agent.pydantic_ai_oauth2
+      - SECURITY_CLASS=validate_token
+  

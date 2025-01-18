@@ -12,6 +12,7 @@ ENV SECURITY_MODULE=
 ENV SECURITY_CLASS=
 ENV API_ENDPOINT=pydanticai
 ENV API_PREFIX=/agents
+ENV API_MODE=simple
 
 # Create a directory for pip installations
 RUN mkdir -p /app/.local && chown nobody:nogroup /app/.local

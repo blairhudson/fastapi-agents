@@ -2,7 +2,7 @@ import pytest
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
 from fastapi_agents import FastAPIAgents
-from fastapi_agents.models import RequestPayload, BaseAgent
+from fastapi_agents.models import RequestPayload, BaseAgent, APIMode
 from unittest.mock import AsyncMock
 import importlib
 import pkgutil
@@ -155,3 +155,24 @@ def test_imports(import_path):
                 pytest.fail(f"Failed to access {item} from {import_path}: {e}")
     except ImportError as e:
         pytest.fail(f"Failed to import {import_path}: {e}")
+
+def test_fastapi_agents_invalid_mode():
+    with pytest.raises(ValueError, match=r"Invalid mode: .*\. Must be one of .*"):
+        FastAPIAgents(mode="invalid_mode")  # Pass an invalid mode
+
+def test_fastapi_agents_valid_mode():
+    try:
+        # Pass valid modes as Enum values
+        FastAPIAgents(mode=APIMode.SIMPLE)  
+        FastAPIAgents(mode=APIMode.OPENAI)
+
+        # Pass valid modes as strings
+        FastAPIAgents(mode="simple")
+        FastAPIAgents(mode="openai")
+    except ValueError:
+        pytest.fail("FastAPIAgents raised ValueError with a valid mode")
+
+def test_fastapi_agents_default_mode():
+    # Test default mode is "simple"
+    router = FastAPIAgents()
+    assert router.mode == "simple", f"Expected default mode to be 'simple', got {router.mode}"

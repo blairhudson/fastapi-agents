@@ -8,6 +8,7 @@
 - 🔐 **Built-In Security**: Easily add API key, OAuth2, cookie, or OpenID authentication to your endpoints.
 - 📚 **Agent Framework Support**: Compatible with agent frameworks like PydanticAI, Llama-Index, and HuggingFace Smolagents.
 - 🐳 **Pre-Built Containers**: Easily deploy agents in your favourite framework with ready made containers.
+- 🔌 **OpenAI Compatibility**: Use your APIs with other AI tooling including the OpenAI SDK itself. (Experimental)
 - 🛠️ **Extensibility**: Support additional agent frameworks by extending the `BaseAgent` class.
 - 🧩 **Dynamic Dependencies**: Inject and resolve request-specific configurations effortlessly.
 - 🚀 **Performance Optimized**: Leverage FastAPI's high performance and scalability for AI agent interactions.
@@ -119,6 +120,7 @@ The `FastAPIAgents` class is initialized with the following parameters:
 |------------------------|---------------------|-----------------|---------------------------------------------------------------------------------------------|
 | `path_prefix`          | `Optional[str]`    | `"/agents"`     | The prefix for all agent-related endpoints. Can be set to `None` for no prefix.             |
 | `security_dependency`  | `Optional[Callable]` | `None`        | A global security dependency for all agents. For example, API key or OAuth validation.      |
+| `mode` | `Optional[APIMode]` | `simple` | Change the way endpoints are registered. `simple` (default) is one endpoint per agent. `openai` provides OpenAI compatibility with a `GET /models` endpoint and a `POST /chat/completions` endpoint that allows your agents to be selected by changing `model=<name>` . |
 | `*args`                | `Any`              | `-`             | Additional arguments passed to the parent `APIRouter` class.                                |
 | `**kwargs`             | `Any`              | `-`             | Additional keyword arguments passed to the parent `APIRouter` class.                        |
 
@@ -139,11 +141,11 @@ The `register` method is used to add an individual agent. The following paramete
 | `name`                 | `str`              | Yes      | -             | The unique name for the agent. This will form part of the endpoint URL.                     |
 | `agent`                | `BaseAgent`        | Yes      | -             | An instance of a class that implements the `BaseAgent` interface.                          |
 | `router`               | `Optional[APIRouter]` | No   | `None`        | A custom router to include this agent. Defaults to the global `FastAPIAgents` router.       |
-| `tags`                 | `Optional[List[str]]` | No   | `["Agents"]`  | Tags to include in the OpenAPI documentation for this agent's endpoints.                   |
-| `description`          | `Optional[str]`    | No       | `None`        | A description for the agent's endpoint in the OpenAPI documentation.                       |
-| `security_dependency`  | `Optional[Callable]` | No   | `None`        | A per-agent security dependency, overriding the global `security_dependency` if set.        |
+| `tags`                 | `Optional[List[str]]` | No   | `["Agents"]`  | Tags to include in the OpenAPI documentation for this agent's endpoints. Not supported in `openai` mode.                  |
+| `description`          | `Optional[str]`    | No       | `None`        | A description for the agent's endpoint in the OpenAPI documentation. Not supported in `openai` mode.                      |
+| `security_dependency`  | `Optional[Callable]` | No   | `None`        | A per-agent security dependency, overriding the global `security_dependency` if set. Not supported in `openai` mode.       |
 
-> **Note**: A per-agent security dependency cannot be used if a global `security_dependency` is already defined during initialization.
+> **Note**: A per-agent security dependency cannot be used if a global `security_dependency` is already defined during initialization or if using `openai` mode.
 
 **Example**:
 ```python
@@ -160,19 +162,11 @@ agents.register(
 )
 ```
 
-### Key Behaviors
-
-- **Global Security vs. Per-Agent Security**: 
-    - If a `security_dependency` is provided at the `FastAPIAgents` level, it applies to all agents unless overridden by a per-agent `security_dependency`.
-    - Defining both global and per-agent security will raise a `ValueError`.
-
-- **Endpoint URLs**:
-    - The endpoint for an agent is constructed as `{path_prefix}/{name}`. 
-    - If `path_prefix` is `None`, the URL becomes `/{name}`.
-
 ## 🐳 Using Docker
 
 ### Pre-Built Images
+
+The simplest way to containerise your agents!
 
 Pre-built Docker images for `FastAPI Agents` are available on GitHub Container Registry (GHCR):
 
@@ -190,6 +184,8 @@ docker pull ghcr.io/blairhudson/fastapi-agents:pydantic-ai
 
 See all available images and tags in [Versions](https://github.com/blairhudson/fastapi-agents/pkgs/container/fastapi-agents/versions).
 
+Currently pre-built images support only one agent per container. If you are creating containers that can serve multiple agents, it is recommended to define your own containers.
+
 ### Environment Variables
 
 The pre-built images support the following environment variables for customisation:
@@ -203,6 +199,7 @@ The pre-built images support the following environment variables for customisati
 | `SECURITY_CLASS` | `validate_token` | Class name for the security depdency. |
 | `API_ENDPOINT`     | `pydantic-ai`      | API endpoint path for the agent.                           |
 | `API_PREFIX`       | `/agents`         | Prefix for all agent-related API endpoints.                |
+| `API_MODE` | `simple` | Changes how endpoints are registered. `openai` changes to OpenAI-compatible endpoints. |
 | `PORT`             | `8080`            | Port the application runs on within the container.         |
 
 To customize these values, pass them as `-e` arguments to `docker run` or define them in an `.env` file.
