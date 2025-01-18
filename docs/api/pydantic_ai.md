@@ -1,4 +1,4 @@
 # API Reference
 
-::: fastapi_agents.pydantic_ai.PydanticAIAgent
+::: fastapi_agents.pydantic_ai
   

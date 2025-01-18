@@ -17,6 +17,7 @@ wheels/
 
 # mkdocs
 site/
+.cache
 
 # pytest
 .coverage

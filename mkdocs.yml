@@ -1,4 +1,7 @@
 site_name: FastAPI Agents
+site_url: https://fastapi-agents.blairhudson.com
+repo_url: https://github.com/blairhudson/fastapi-agents
+repo_name: blairhudson/fastapi-agents
 nav:
   - Home: index.md
   - Roadmap: roadmap.md
@@ -11,17 +14,57 @@ nav:
     - fastapi_agents.errors: api/errors.md
 theme:
   name: material
+  palette: 
+    - scheme: default
+      toggle:
+        icon: material/brightness-7 
+        name: Switch to dark mode
+    - scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.footer
+    - navigation.instant
+    - navigation.instant.prefetch
+    - navigation.instant.progress
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.path
+    - toc.integrate
+    - navigation.top
 
 plugins:
+  - git-committers:
+      repository: blairhudson/fastapi-agents
+      branch: main
+  - git-revision-date-localized:
+      enable_creation_date: true
+      fallback_to_build_date: true
+      type: timeago
+  - search
   - include-markdown
   - mkdocstrings:  # For auto-generating API documentation from your Python package
       handlers:
         python:
           paths: ["../fastapi_agents"]  # Adjust path to point to the package
+copyright: "FastAPI Agents © 2025 Blair Hudson"
 extra:
+  generator: false
+  version:
+    provider: git
   social:
     - icon: fontawesome/brands/github
-      link: 'https://github.com/blairhudson/fastapi-agents'
+      link: https://github.com/blairhudson/fastapi-agents
+    - icon: simple/zenodo
+      link: https://doi.org/10.5281/zenodo.14635504
+    - icon: fontawesome/brands/linkedin 
+      link: https://linkedin.com/in/blairhudson
+    - icon: fontawesome/brands/x-twitter
+      link: https://x.com/blairhudson
+  edit_uri: "edit/main/docs"
 markdown_extensions: 
   - pymdownx.highlight:
       use_pygments: true
